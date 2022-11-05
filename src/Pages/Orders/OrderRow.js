@@ -41,14 +41,12 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
         <span className="badge badge-ghost badge-sm">${price}</span>
       </td>
       <td>Purple</td>
-      <th>
-        
-        <button
-          onClick={() => handleStatusUpdate(_id)}
-          className="btn btn-ghost btn-xs"
-        >
-          {status ? status : "pending"}
-        </button>
+      <th onClick={() => handleStatusUpdate(_id)}>
+        {status ? (
+          <button className="btn btn-success btn-xs">{status}</button>
+        ) : (
+          <button className="btn btn-error btn-xs">Pending</button>
+        )}
       </th>
     </tr>
   );

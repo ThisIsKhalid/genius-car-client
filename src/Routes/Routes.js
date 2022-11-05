@@ -4,6 +4,8 @@ import Checkout from "../Pages/Checkout/Checkout";
 import Home from "../Pages/Home/Home/Home";
 import SignIn from "../Pages/Login/SignIn";
 import SignUp from "../Pages/Login/SignUp";
+import Orders from "../Pages/Orders/Orders";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
         loader: ({ params }) => {
           return fetch(`http://localhost:5000/services/${params.id}`);
         },
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRoute>
+            <Orders></Orders>
+          </PrivateRoute>
+        ),
       },
     ],
   },

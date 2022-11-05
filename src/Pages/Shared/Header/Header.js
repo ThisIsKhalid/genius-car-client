@@ -25,15 +25,13 @@ const Header = () => {
       <li>
         <Link to="/home">Services</Link>
       </li>
+      <li>
+        <Link to="/orders">Orders</Link>
+      </li>
       {user?.email ? (
-        <>
-          <li>
-            <Link to="/orders">Orders</Link>
-          </li>
-          <li>
-            <button onClick={handleLogOut}>Signout</button>
-          </li>
-        </>
+        <li>
+          <button onClick={handleLogOut}>Signout</button>
+        </li>
       ) : (
         <>
           <li>

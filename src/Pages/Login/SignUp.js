@@ -20,7 +20,9 @@ const SignUp = () => {
         updateUserProfile({
           displayName: name,
         })
-          .then(() => {})
+          .then(() => {
+            form.reset();
+          })
           .catch((error) => {
             console.error(error);
           });

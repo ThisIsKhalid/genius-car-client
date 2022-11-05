@@ -18,6 +18,7 @@ const SignIn = () => {
     signIn(email, password)
       .then((res) => {
         console.log(res.user);
+        form.reset();
         navigate(from, { replace: true });
       })
       .catch((error) => {

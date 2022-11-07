@@ -3,17 +3,27 @@ import { AuthContext } from "../../Context/AuthProvider";
 import OrderRow from "./OrderRow";
 
 const Orders = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
+  const [refresh, setRefresh] = useState(true);
 
   // console.log(orders);
   // console.log(user);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:5000/orders?email=${user?.email}` , {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        if(res.status === 401 || res.status === 403){
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => setOrders(data));
-  }, [user?.email]);
+  }, [user?.email, refresh, logOut]);
 
   const handleDelete = (id) => {
     const proceed = window.confirm(
@@ -28,8 +38,9 @@ const Orders = () => {
           // console.log(data);
           if (data.deletedCount > 0) {
             alert("deleted succesfully");
-            const remaining = orders.filter((ord) => ord._id !== id);
-            setOrders(remaining);
+            // const remaining = orders.filter((ord) => ord._id !== id);
+            // setOrders(remaining);
+            setRefresh(!refresh)
           }
         });
     }
@@ -58,7 +69,7 @@ const Orders = () => {
 
   return (
     <div>
-      <h2 className="text-4xl">You have {orders.length} orders.</h2>
+      <h2 className="text-4xl">You have {orders?.length} orders.</h2>
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>

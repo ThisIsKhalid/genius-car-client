@@ -6,7 +6,7 @@ const Checkout = () => {
   const { user } = useContext(AuthContext);
   const service = useLoaderData();
   const { _id, title, price } = service;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ const Checkout = () => {
 
     // validation korte hbe
     // if else diye
-    fetch("http://localhost:5000/orders", {
+    fetch("https://genius-car-server-one-smoky.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -40,7 +40,7 @@ const Checkout = () => {
         if (data.acknowledged) {
           alert("Order placed Succesfully");
           form.reset();
-          navigate('/')
+          navigate("/");
         }
       })
       .catch((err) => console.error(err));

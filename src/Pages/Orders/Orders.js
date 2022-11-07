@@ -11,13 +11,16 @@ const Orders = () => {
   // console.log(user);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}` , {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`
+    fetch(
+      `https://genius-car-server-one-smoky.vercel.app/orders?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
-    })
+    )
       .then((res) => {
-        if(res.status === 401 || res.status === 403){
+        if (res.status === 401 || res.status === 403) {
           return logOut();
         }
         return res.json();
@@ -30,7 +33,7 @@ const Orders = () => {
       "Are you sure, you want to cancel the order?"
     );
     if (proceed) {
-      fetch(`http://localhost:5000/orders/${id}`, {
+      fetch(`https://genius-car-server-one-smoky.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -40,14 +43,14 @@ const Orders = () => {
             alert("deleted succesfully");
             // const remaining = orders.filter((ord) => ord._id !== id);
             // setOrders(remaining);
-            setRefresh(!refresh)
+            setRefresh(!refresh);
           }
         });
     }
   };
 
   const handleStatusUpdate = (id) => {
-    fetch(`http://localhost:5000/orders/${id}`, {
+    fetch(`https://genius-car-server-one-smoky.vercel.app/orders/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

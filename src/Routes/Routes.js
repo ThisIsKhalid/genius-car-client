@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) => {
-          return fetch(`http://localhost:5000/services/${params.id}`);
+          return fetch(`https://genius-car-server-one-smoky.vercel.app/services/${params.id}`);
         },
       },
       {
